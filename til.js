@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-'use strict';
 
 /*
   Today I Learned command-line app
