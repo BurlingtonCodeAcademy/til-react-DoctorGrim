@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Nav from "./nav.js";
+import Home from "./home.js";
+import Facts from "./facts.js";
+import Fact from "./fact.js";
 import "./App.css";
-//import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
 const [data, setData] = useState([0]);
@@ -25,25 +29,26 @@ const [data, setData] = useState([0]);
   
   console.log(data)
   
-  
+  //warning wants me to make a key for each child?
   return (
     <div className="App">
-      <h1>Today I Learned</h1>
-      <li>
-        <a href="/facts">List all entries (JSON)</a>
-      </li>
-      <h2>Add a fact</h2>
-      <form method="POST" action="/facts">
-        <input type="text" name="text" />
-        <input type="submit" />
-      </form>
-
-
-{data.map((data, index) =>
-  <div key={data.name + index}>
+      
+      <BrowserRouter>
+      <React.Fragment>
+        <Nav />
+        <Switch>
+          <Route path="/facts" component={Facts} />
+          <Route path="/facts/:post" component={Fact} />
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </React.Fragment>
+    </BrowserRouter>
+    
+{data.map((data) =>
+  <div key={data._id} id={data._id}>
+      <a href={`#${data._id}`}>{data._id}</a>
       <h1>{data.when}</h1>
       <p>{data.text}</p>
-      <hr/>
   </div>
   )}
 
